@@ -1,5 +1,7 @@
 # Starter Labs - CHALLENGE
 
+<img src="./screenshots/web.png" alt="Site screenshot" width="400" height="200"/>
+
 ## Description
 
 Create an ERC20 Token with 1,000,000,000 supply and an NFT ERC721 Token (compatible with OpenSea standard).
@@ -16,9 +18,9 @@ The contracts should be deployed to Mumbai Testnet and use the ChainLink VRF for
 3. Update the configuration making a copy of .env.example to .env
 4. Deploy the smart contracts with command:<br>
    `npx hardhat run scripts/deploy.ts --network mumbai`
-5. Copy the token, nft and random generator addresses to `starter-web/src/configs/smartContractAddress.ts`
-6. Run script to copy the abis to `starter-web/src/contracts/` with command: `npm run cp-contracts`
-7. Run web version in starter-web with command: `npm run dev`
+5. Copy the token, nft and random generator addresses to `web/src/configs/smartContractAddress.ts`
+6. Run script to copy the abis to `web/src/contracts/` with command: `npm run cp-contracts`
+7. Run web version in web folder with command: `npm run dev`
 
 ## How to verify deployed contracts
 
@@ -34,4 +36,4 @@ NFT_ADDRESS: 0xdab904B02014455c50BE4454E448E7e86dc10B60<br>
 TOKEN_ADDRESS: 0xCaD58962487156Ea199F67B1166abb043a244356<br>
 RANDOM_NUMBER_ADDRESS: 0x4BeEbdD5Dc280ea9912157cF2C914E3594f32dd6<br>
 
-Test Web: http://
+Site: https://starterlabs-challenge.vercel.app/
