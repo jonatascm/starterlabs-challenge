@@ -1,10 +1,10 @@
-import React from 'react'
-import { useNft } from '../../hooks/useNft'
-import { useWallet } from '../../hooks/useWallet'
+import React, { useContext } from 'react'
+import { NftContext } from '../../contexts/nftContext'
+import { WalletContext } from '../../contexts/walletContext'
 
 const TopMenu: React.FC = () => {
-  const { connectWallet, currentAccount } = useWallet()
-  const { getTestToken } = useNft()
+  const { connectWallet, currentAccount } = useContext(WalletContext)
+  const { getTestToken } = useContext(NftContext)
 
   return (
     <div className="mx-10 mt-5 flex justify-between">

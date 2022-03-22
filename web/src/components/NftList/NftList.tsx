@@ -1,9 +1,9 @@
-import React, { useEffect } from 'react'
+import React, { useContext } from 'react'
 import Image from 'next/image'
-import { useNft, MintingStatus } from '../../hooks/useNft'
+import { NftContext } from '../../contexts/nftContext'
 
 const NftList: React.FC = () => {
-  const { mintedNFT } = useNft()
+  const { mintedNFT } = useContext(NftContext)
 
   return (
     <div className="flex flex-col items-center justify-center">

@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react'
+import { useState, useEffect, createContext } from 'react'
 import { ethers } from 'ethers'
 import LabMonsterNFT from '../contracts/LabMonsterNft.json'
 import SlabsToken from '../contracts/SlabsToken.json'
@@ -14,7 +14,25 @@ export enum MintingStatus {
   mint,
 }
 
-export const useNft = () => {
+type NftContextType = {
+  requestRandomNumber: () => {}
+  approveMint: () => {}
+  randomMint: () => {}
+  getTestToken: () => {}
+  loadNFT: () => {}
+  mintedNFT: any[]
+  mintingStatus: MintingStatus
+  txError: String
+  isLoading: boolean
+}
+
+export const NftContext = createContext({} as NftContextType)
+
+export type ContextProps = {
+  children: React.ReactNode
+}
+
+export const NftProvider: React.FC<ContextProps> = ({ children }) => {
   const { tokenAddress, nftAddress, randomNumberAddress } = ContractAddresses
   const [mintedNFT, setMintedNFT] = useState<any[]>([])
   const [mintingStatus, setMintingStatus] = useState<MintingStatus>(
@@ -131,6 +149,7 @@ export const useNft = () => {
 
         nftContract.on('Transfer', async (_, user, tokenId) => {
           if (signerAddress == user) {
+            await getMintedNFT(ethers.utils.formatEther(tokenId))
             setIsLoading(false)
             setMintingStatus(MintingStatus.generate)
           }
@@ -192,7 +211,6 @@ export const useNft = () => {
         }
       }
     } catch (error: any) {
-      setTxError('Failed to load NFTs')
       console.log(error)
     }
   }
@@ -217,15 +235,21 @@ export const useNft = () => {
     }
   }
 
-  return {
-    requestRandomNumber,
-    approveMint,
-    randomMint,
-    getTestToken,
-    loadNFT,
-    mintedNFT,
-    mintingStatus,
-    txError,
-    isLoading,
-  }
+  return (
+    <NftContext.Provider
+      value={{
+        requestRandomNumber,
+        approveMint,
+        randomMint,
+        getTestToken,
+        loadNFT,
+        mintedNFT,
+        mintingStatus,
+        txError,
+        isLoading,
+      }}
+    >
+      {children}
+    </NftContext.Provider>
+  )
 }

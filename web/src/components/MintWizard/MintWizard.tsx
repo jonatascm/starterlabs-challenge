@@ -1,10 +1,10 @@
-import React, { useCallback } from 'react'
+import React, { useCallback, useContext } from 'react'
 import { HashLoader } from 'react-spinners'
-import { useNft, MintingStatus } from '../../hooks/useNft'
-import { useWallet } from '../../hooks/useWallet'
+import { NftContext, MintingStatus } from '../../contexts/nftContext'
+import { WalletContext } from '../../contexts/walletContext'
 
 const MintWizard: React.FC = () => {
-  const { currentAccount, correctNetwork } = useWallet()
+  const { currentAccount, correctNetwork } = useContext(WalletContext)
   const {
     requestRandomNumber,
     approveMint,
@@ -12,7 +12,7 @@ const MintWizard: React.FC = () => {
     mintingStatus,
     txError,
     isLoading,
-  } = useNft()
+  } = useContext(NftContext)
 
   const getButtonText = useCallback(() => {
     switch (mintingStatus) {
