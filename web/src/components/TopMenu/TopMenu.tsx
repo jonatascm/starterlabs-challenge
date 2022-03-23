@@ -1,10 +1,16 @@
-import React, { useContext } from 'react'
+import React, { useContext, useEffect } from 'react'
 import { NftContext } from '../../contexts/nftContext'
 import { WalletContext } from '../../contexts/walletContext'
 
 const TopMenu: React.FC = () => {
   const { connectWallet, currentAccount } = useContext(WalletContext)
-  const { getTestToken } = useContext(NftContext)
+  const { getTestToken, loadNFT } = useContext(NftContext)
+
+  useEffect(() => {
+    if (currentAccount != '') {
+      loadNFT()
+    }
+  }, [currentAccount])
 
   return (
     <div className="mx-10 mt-5 flex justify-between">
